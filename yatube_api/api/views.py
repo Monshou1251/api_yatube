@@ -1,7 +1,7 @@
 from rest_framework import viewsets 
 
 from posts.models import Post, Comment, Group
-from .serializers import PostSerializer, GroupSerializer
+from .serializers import PostSerializer, GroupSerializer, CommentSerializer
 
 
 class PostViewSet(viewsets.ModelViewSet):
@@ -15,5 +15,8 @@ class GroupViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class CommentViewSet(viewsets.ModelViewSet):
-    queryset = Comment.objects.all()
-    serializer_class = GroupSerializer
+    serializer_class = CommentSerializer
+    def get_queryset(self):
+        post_id = self.kwargs.get("post_id")
+        new_queryset = Comment.objects.filter(post=post_id)
+        return new_queryset

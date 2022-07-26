@@ -29,9 +29,8 @@ class GroupSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    character_quantity = serializers.SerializerMethodField()
-    publication_date = serializers.DateTimeField(source='created',
-                                                 read_only=True)
+    author = serializers.ReadOnlyField(source='author.username')
+    
     class Meta:
         model = Comment
-        fields = ('author', 'post', 'text', 'description', 'publication_date')
+        fields = ('id', 'author', 'post', 'text', 'created')
