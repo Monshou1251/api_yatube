@@ -20,4 +20,4 @@ router.register(
 urlpatterns = [
     path(f'{version_api}/', include(router.urls)),
     path(f'{version_api}/api-token-auth/', views.obtain_auth_token),
-] 
+]
