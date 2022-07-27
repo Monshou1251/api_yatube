@@ -1,3 +1,4 @@
+from django.shortcuts import get_object_or_404
 from requests import Response
 from rest_framework import status
 from rest_framework import viewsets
@@ -37,4 +38,10 @@ class CommentViewSet(viewsets.ModelViewSet):
         post_id = self.kwargs.get("post_id")
         new_queryset = Comment.objects.filter(post=post_id)
         return new_queryset
+    
+    def perform_create(self, serializer):
+        post = get_object_or_404(Post, pk=self.kwargs['post_id'])
+        serializer.save(
+            author=self.request.user,
+            post=post)
     
