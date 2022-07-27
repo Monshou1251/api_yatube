@@ -1,7 +1,5 @@
 from rest_framework import serializers
-import datetime as dt
 from posts.models import Post, Group, Comment
-
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -21,7 +19,7 @@ class GroupSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
     author = serializers.ReadOnlyField(source='author.username')
-    
+
     class Meta:
         model = Comment
         fields = ('id', 'author', 'post', 'text', 'created')
