@@ -5,12 +5,11 @@ from .views import PostViewSet, GroupViewSet, CommentViewSet
 
 
 app_name = 'api'
-version_api = 'v1'
 
-router = routers.DefaultRouter()
-router.register('posts', PostViewSet, basename='posts')
-router.register('groups', GroupViewSet, basename='groups')
-router.register(
+routerv1 = routers.DefaultRouter()
+routerv1.register('posts', PostViewSet, basename='posts')
+routerv1.register('groups', GroupViewSet, basename='groups')
+routerv1.register(
     r'^posts/(?P<post_id>\d+)/comments',
     CommentViewSet,
     basename='comments'
@@ -18,6 +17,6 @@ router.register(
 
 
 urlpatterns = [
-    path(f'{version_api}/', include(router.urls)),
-    path(f'{version_api}/api-token-auth/', views.obtain_auth_token),
+    path('v1/', include(routerv1.urls)),
+    path('v1/api-token-auth/', views.obtain_auth_token),
 ]
